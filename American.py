@@ -300,9 +300,9 @@ class American(European):
         K, r, signCP = self.K, self.rf_r, self._signCP
 
         np.random.seed(rng_seed)
-        norm_mtx = np.random.normal((r - 0.5 * vol ** 2) * dt, vol * math.sqrt(dt), (n + 1, m))
-        S = S0 * np.exp(np.cumsum(norm_mtx, axis=0))
-        S[0] = S0
+        norm_mtx = np.random.normal((r - 0.5 * vol ** 2) * dt, vol * math.sqrt(dt), (n , m))
+        S=np.ones(shape=(n+1,m))*S0
+        S[1:,:]=S0 * np.exp(np.cumsum(norm_mtx, axis=0))
         payout = np.maximum(signCP * (S - K), 0)
         v = np.copy(payout)  # terminal payouts
 
@@ -323,4 +323,3 @@ class American(European):
         """
 
         return self
-
